@@ -4,12 +4,16 @@ const app = express();
 
 const PORT = process.env.PORT || 3000;
 
-// កំណត់ឱ្យ Express ស្គាល់ Static files ក្នុង folder public
+// កំណត់ static files ទៅកាន់ folder public
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.json());
 
-// កំណត់ទំព័រដើមឱ្យបើក index.html ជានិច្ច
-app.get("*", (req, res) => {
+// បើក index.html សម្រាប់គ្រប់ request
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "index.html"));
+});
+
+app.use((req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
